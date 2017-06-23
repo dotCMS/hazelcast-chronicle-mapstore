@@ -25,13 +25,17 @@ dependencies {
     compile 'com.hazelcast:hazelcast:3.8.2'
     compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
     compile group: 'commons-collections', name: 'commons-collections', version: '3.0'
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+
+
     compile group: 'net.openhft', name: 'chronicle-map', version: '3.13.0'
   
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
 }
 
 shadowJar {
-   relocate 'junit.framework', 'shadow.junit'
+ dependencies {
+      exclude(dependency('com.hazelcast:hazelcast:3.8.2'))
+   }
+
+   relocate 'org.slf4j', 'shadow.org.slf4j'
 }
