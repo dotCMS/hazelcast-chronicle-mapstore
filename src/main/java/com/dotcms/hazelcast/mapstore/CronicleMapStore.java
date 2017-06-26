@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.hazelcast.core.MapStore;
-
+import com.dotcms.hazelcast.mapstore.HazelCroniclePropertyBundle.*;
 import net.openhft.chronicle.map.ChronicleMap;
 
 
@@ -41,11 +41,20 @@ public class CronicleMapStore implements MapStore<String, Object> {
     }
 
     private ChronicleMap<String, Object> initCache() {
+        long avgKeySize  = (HazelCroniclePropertyBundle.getLongProperty("croniclemap." + this.region + ".avgkeysize",0) >0) 
+                        ?  HazelCroniclePropertyBundle.getLongProperty("croniclemap." + this.region + ".avgkeysize", 0)
+                        : HazelCroniclePropertyBundle.getLongProperty("croniclemap.default.avgkeysize", 128);
+                        
+        long avgValueSize  = (HazelCroniclePropertyBundle.getLongProperty("croniclemap." + this.region + ".avgvaluesize",0) >0) 
+                        ?  HazelCroniclePropertyBundle.getLongProperty("croniclemap." + this.region + ".avgvaluesize", 0)
+                        : HazelCroniclePropertyBundle.getLongProperty("croniclemap.default.avgvaluesize", 10000);
+        
+        
         return ChronicleMap.of(String.class, Object.class)
             .name(region)
             .entries(entries)
-            .averageKey("this-is-a-normal-key-that-we.call-though-it-can-be-longer-than-it-should-be")
-            .averageValueSize(10000)
+            .averageKeySize(avgKeySize)
+            .averageValueSize(avgKeyValueSize)
             .create();
     }
 

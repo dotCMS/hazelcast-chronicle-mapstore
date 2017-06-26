@@ -27,10 +27,10 @@ public class HazelCroniclePropertyBundle {
             }
             properties.load(in);
         } catch (FileNotFoundException e) {
-            System.out.println("HazelH2PropertyBundle FileNotFoundException : " + PROPERTY_FILE_NAME + " not found");
+            System.out.println("HazelCroniclePropertyBundle FileNotFoundException : " + PROPERTY_FILE_NAME + " not found");
 
         } catch (IOException e) {
-            System.out.println("HazelH2PropertyBundle IOException : Can't read " + PROPERTY_FILE_NAME);
+            System.out.println("HazelCroniclePropertyBundle IOException : Can't read " + PROPERTY_FILE_NAME);
 
         }
     }
